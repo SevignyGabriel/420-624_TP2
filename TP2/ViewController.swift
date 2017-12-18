@@ -71,14 +71,38 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     @IBAction func startQuiz(sender: AnyObject) {
-        dataController.createQuiz(categories[categoriesPicker.selectedRowInComponent(0)].id, numberOfQuestions: Int(numberOfQuestions.text!)!, difficulty: difficulties[difficultiesPicker.selectedRowInComponent(0)])  { (isSuccess, quiz) in
-            self.quiz = quiz
-            print("quiz created : ", quiz)
-            dispatch_async(dispatch_get_main_queue()) {
-                self.performSegueWithIdentifier("quizStart", sender: self)
+        if (numberOfQuestions.text != "") {
+            //self.performSegueWithIdentifier("quizLoading", sender: self)
+            dataController.createQuiz(categories[categoriesPicker.selectedRowInComponent(0)].id, numberOfQuestions: Int(numberOfQuestions.text!)!, difficulty: difficulties[difficultiesPicker.selectedRowInComponent(0)])  { (isSuccess, quiz) in
+                self.quiz = quiz
+                print("quiz created : ", quiz)
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.performSegueWithIdentifier("quizStart", sender: self)
+                }
+                return []
             }
-            return []
+        } else {
+            showToast("Enter a number of questions!")
         }
+    }
+    
+    func showToast(message : String) {
+        
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 125, y: self.view.frame.size.height-100, width: 250, height: 35))
+        toastLabel.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
+        toastLabel.textColor = UIColor.whiteColor()
+        toastLabel.textAlignment = NSTextAlignment.Center;
+        toastLabel.font = UIFont(name: "Montserrat-Light", size: 12.0)
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 10;
+        toastLabel.clipsToBounds  =  true
+        self.view.addSubview(toastLabel)
+        UIView.animateWithDuration(4.0, animations: {
+            toastLabel.alpha = 0.0
+            }, completion: {(isCompleted) in
+                toastLabel.removeFromSuperview()
+        })
     }
     
     // MARK: - Navigation
