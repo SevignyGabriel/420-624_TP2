@@ -123,40 +123,53 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="exY-q9-WFk">
-                                <rect key="frame" x="184" y="471" width="46" height="30"/>
+                                <rect key="frame" x="184" y="626" width="46" height="30"/>
                                 <state key="normal" title="Start"/>
                                 <connections>
                                     <action selector="startQuiz:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xfo-jy-REu"/>
                                     <segue destination="xph-ov-d4q" kind="show" identifier="quizLoading" id="Kk7-h4-fL7"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Number of questions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="92n-7d-A5I">
-                                <rect key="frame" x="125" y="357" width="164" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Number of questions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="92n-7d-A5I">
+                                <rect key="frame" x="125" y="534" width="164" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="4vZ-wc-aM2">
-                                <rect key="frame" x="131" y="386" width="152" height="30"/>
+                                <rect key="frame" x="131" y="563" width="152" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DHs-xE-iOp">
-                                <rect key="frame" x="170" y="72" width="74" height="21"/>
+                                <rect key="frame" x="170" y="28" width="74" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m30-n9-jjN">
-                                <rect key="frame" x="0.0" y="110" width="414" height="216"/>
+                                <rect key="frame" x="0.0" y="57" width="414" height="216"/>
                             </pickerView>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="beb-z9-arq">
+                                <rect key="frame" x="0.0" y="310" width="414" height="216"/>
+                            </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Difficulty" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XxA-zc-EJu">
+                                <rect key="frame" x="170" y="281" width="73" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="92n-7d-A5I" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gEU-Gm-UGN"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="bFw-xN-Fzd"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
                         <outlet property="categoriesPicker" destination="m30-n9-jjN" id="gaz-Yd-23o"/>
+                        <outlet property="difficultiesPicker" destination="beb-z9-arq" id="ilM-Zc-fTa"/>
                         <outlet property="numberOfQuestions" destination="4vZ-wc-aM2" id="xvu-VI-PDg"/>
                         <segue destination="EZJ-at-D6g" kind="show" identifier="quizStart" id="F42-sv-MQG"/>
                     </connections>

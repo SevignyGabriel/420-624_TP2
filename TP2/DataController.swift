@@ -10,8 +10,13 @@ import UIKit
 
 class DataController: NSObject {
     
-    func createQuiz(category: Int, numberOfQuestions: Int, finished: ((isSuccess: Bool, quiz: Quiz) -> [Void])) {
-        let url = (category > 0) ? NSURL(string: "https://opentdb.com/api.php?amount=" + String(numberOfQuestions) + "&category=" + String(category)) : NSURL(string: "https://opentdb.com/api.php?amount=" + String(numberOfQuestions))
+    func createQuiz(category: Int, numberOfQuestions: Int, difficulty: String, finished: ((isSuccess: Bool, quiz: Quiz) -> [Void])) {
+        var urlString = (category > 0) ? "https://opentdb.com/api.php?amount=" + String(numberOfQuestions) + "&category=" + String(category) : "https://opentdb.com/api.php?amount=" + String(numberOfQuestions)
+        if (difficulty != "any") {
+            urlString = urlString + "&difficulty=" + difficulty
+        }
+
+        let url = NSURL(string: urlString)
         let session = NSURLSession.sharedSession()
         var questions: [Question] = []
         var quiz : Quiz = Quiz(questions: [])

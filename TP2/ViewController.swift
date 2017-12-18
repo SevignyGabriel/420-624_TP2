@@ -11,10 +11,12 @@ import UIKit
 class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet weak var categoriesPicker: UIPickerView!
+    @IBOutlet weak var difficultiesPicker: UIPickerView!
     @IBOutlet weak var numberOfQuestions: UITextField!
     
     let dataController : DataController = DataController()
     var pickerCategories : [String] = []
+    var difficulties : [String] = ["any", "easy", "medium", "hard"]
     var categories : [Category] = []
     var quiz : Quiz = Quiz(questions: [])
     
@@ -23,16 +25,31 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return categories.count
+        if (pickerView == categoriesPicker) {
+            return categories.count
+        }
+        if (pickerView == difficultiesPicker) {
+            return difficulties.count
+        }
+        return 0
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return categories[row].name
+        if (pickerView == categoriesPicker) {
+            return categories[row].name
+        }
+        if (pickerView == difficultiesPicker) {
+            return difficulties[row]
+        }
+        return "error"
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.difficultiesPicker.delegate = self
+        self.difficultiesPicker.dataSource = self
+        self.difficultiesPicker.reloadAllComponents()
         dataController.getTriviaCatagories({ isSuccess, categories in
             self.categories = categories
             print("categories final : ", self.categories.count)
@@ -54,7 +71,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     @IBAction func startQuiz(sender: AnyObject) {
-        dataController.createQuiz(categories[categoriesPicker.selectedRowInComponent(0)].id, numberOfQuestions: Int(numberOfQuestions.text!)!)  { (isSuccess, quiz) in
+        dataController.createQuiz(categories[categoriesPicker.selectedRowInComponent(0)].id, numberOfQuestions: Int(numberOfQuestions.text!)!, difficulty: difficulties[difficultiesPicker.selectedRowInComponent(0)])  { (isSuccess, quiz) in
             self.quiz = quiz
             print("quiz created : ", quiz)
             dispatch_async(dispatch_get_main_queue()) {
